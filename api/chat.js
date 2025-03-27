@@ -38,5 +38,6 @@ export default async function handler(req, res) {
   } catch (error) {
     console.error('Lỗi GPT:', error.response?.data || error.message);
     res.status(500).json({ error: 'Lỗi GPT server' });
+    console.error('Chi tiết lỗi GPT:', error.response?.data || error.message);
   }
 }
