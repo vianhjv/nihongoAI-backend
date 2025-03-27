@@ -1,6 +1,6 @@
 const axios = require('axios');
 
-module.exports = async function handler(req, res) {
+export default async function handler(req, res) {
   const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
 
   if (req.method !== 'POST') {
@@ -17,7 +17,7 @@ module.exports = async function handler(req, res) {
         messages: [
           {
             role: 'system',
-            content: 'Bạn là giáo viên tiếng Nhật. Trả lời đơn giản bằng tiếng Nhật cho người mới học.',
+            content: 'Bạn là giáo viên tiếng Nhật. Trả lời bằng tiếng Nhật đơn giản.',
           },
           {
             role: 'user',
@@ -39,4 +39,4 @@ module.exports = async function handler(req, res) {
     console.error('Lỗi GPT:', error.response?.data || error.message);
     res.status(500).json({ error: 'Lỗi GPT server' });
   }
-};
+}
