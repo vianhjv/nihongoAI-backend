@@ -1,3 +1,5 @@
+import fetch from 'node-fetch';
+
 export default async function handler(req, res) {
   const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
 
@@ -19,7 +21,7 @@ export default async function handler(req, res) {
         messages: [
           {
             role: "system",
-            content: "Bạn là giáo viên tiếng Nhật, luôn trả lời bằng tiếng Nhật đơn giản cho người mới học."
+            content: "Bạn là giáo viên tiếng Nhật. Luôn trả lời bằng tiếng Nhật đơn giản, dễ hiểu."
           },
           {
             role: "user",
@@ -30,6 +32,12 @@ export default async function handler(req, res) {
     });
 
     const data = await gptRes.json();
+
+    // Nếu OpenAI trả lỗi → thông báo luôn
+    if (data.error) {
+      return res.status(500).json({ error: data.error.message || "Lỗi từ OpenAI" });
+    }
+
     const reply = data.choices[0].message.content;
     res.status(200).json({ reply });
   } catch (error) {
