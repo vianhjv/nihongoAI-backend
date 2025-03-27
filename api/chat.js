@@ -1,6 +1,6 @@
-import axios from 'axios';
+const axios = require('axios');
 
-export default async function handler(req, res) {
+module.exports = async function handler(req, res) {
   const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
 
   if (req.method !== 'POST') {
@@ -39,4 +39,4 @@ export default async function handler(req, res) {
     console.error('Lỗi GPT:', error.response?.data || error.message);
     res.status(500).json({ error: 'Lỗi GPT server' });
   }
-}
+};
